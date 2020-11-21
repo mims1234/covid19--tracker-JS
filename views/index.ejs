@@ -4,21 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Covid-19 Tracker</title>
-    <link rel="stylesheet" href="../public/css/home.css">
+    <link rel="stylesheet" href="/css/home.css">
 </head>
 <body>
     <div class="background">
         <canvas id="canvas1"></canvas>
         <div class="container">
             <h1><span>COVID</span>-<span>19</span><br> TRACKER</h1><br>
-            <button id="myButton">VIEW DATA</button>
+            <form action="dashboard">
+                <button id="myButton">VIEW DATA</button>
+            </form>
         </div>
     </div>
-    <script src="../public/js/particle.js"></script>
+    <script src="/js/particle.js"></script>
 </body>
-<script type="text/javascript">
-    document.getElementById("myButton").onclick = function () {
-        location.href = "dashboard.html";
-    };
-</script>
 </html>
