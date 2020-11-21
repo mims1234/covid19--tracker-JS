@@ -1,0 +1,66 @@
+@font-face {
+    font-family: 'Bahnschrift Static Regular';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Bahnschrift Static Regular'), url('../font/BS_Static_Regular.woff') format('woff');
+}
+
+
+@font-face {
+    font-family: 'Bahnschrift Static Light';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Bahnschrift Static Light'), url('../font/BS_Static_Light.woff') format('woff');
+}
+
+
+@font-face {
+    font-family: 'Bahnschrift Static Bold';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Bahnschrift Static Bold'), url('../font/BS_Static_Bold.woff') format('woff');
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+
+.background {
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(#181818,#000000);
+}
+
+.container {
+    position: absolute;
+    display: flex;
+    z-index: 999;
+    top:50vh;
+    left:50vw;
+    transform: translate(-50%,-50%);
+}
+
+h1{
+    color:#ffffff;
+    font-family:'Bahnschrift Static Light';
+    font-weight:normal;
+    font-size:100px;
+}
+
+span{
+    animation: colorfade 5s infinite ease-in-out;
+}
+
+@keyframes colorfade{
+    0%{
+        color:#ffffff;
+    }
+    50%{
+        color:#ff0000;
+    }
+    100%{
+        color:#ffffff;
+    }
+}

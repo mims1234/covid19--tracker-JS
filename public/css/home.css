@@ -1,0 +1,141 @@
+@font-face {
+    font-family: 'Bahnschrift Static Regular';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Bahnschrift Static Regular'), url('../font/BS_Static_Regular.woff') format('woff');
+}
+
+
+@font-face {
+    font-family: 'Bahnschrift Static Light';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Bahnschrift Static Light'), url('../font/BS_Static_Light.woff') format('woff');
+}
+
+
+@font-face {
+    font-family: 'Bahnschrift Static Bold';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Bahnschrift Static Bold'), url('../font/BS_Static_Bold.woff') format('woff');
+}
+
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+
+.background {
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(#181818,#000000);
+}
+
+#canvas1 {
+    position: absolute;
+    top: 0;left: 0;
+    width:100%;
+    height: 100%;
+    background: radial-gradient(#242424,#000000);
+}
+
+#myButton{
+    color:white;
+    background-color:#020000;
+    font-family:'Bahnschrift Static Light';
+    font-weight:bold;
+    font-size:24px;
+    padding: 20px;
+    margin-left:100px;
+    border: none;
+    transition: 0.5s ease-in-out;
+    cursor: pointer;
+    animation: butcolorfade 5s infinite ease-in-out;
+}
+
+#myButton:hover{
+    color:rgb(0, 0, 0);
+    background-color:#ffffff;
+}
+
+.vanish{
+    animation: vanishnow 0.5s ease-in-out;
+}
+
+.container {
+    background: transparent;
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    top:50vh;
+    left:50vw;
+    transform: translate(-50%,-50%);
+}
+
+h1{
+    color:#ffffff;
+    font-family:'Bahnschrift Static Light';
+    font-weight:normal;
+    font-size:100px;
+}
+
+span{
+    animation: colorfade 5s infinite ease-in-out;
+}
+
+@keyframes colorfade{
+    0%{
+        color:#ffffff;
+    }
+    50%{
+        color:#ff0000;
+    }
+    100%{
+        color:#ffffff;
+    }
+}
+
+@keyframes butcolorfade{
+    0%{
+        color:#ffffff;
+        font-size:24px;
+        background-color:#0200007c;
+    }
+    50%{
+        color:#ff0000;
+        font-size:30px;
+        background-color:#020000;
+    }
+    100%{
+        color:#ffffff;
+        font-size:24px;
+        background-color:#0200007c;
+    }
+}
+
+@keyframes vanishnow{
+    0%{
+        opacity: 1;
+    }
+    25%{
+        opacity: 0.75;
+    }
+    50%{
+        opacity: 0.5;
+    }
+    75%{
+        opacity: 0.25;
+    }
+    90%{
+        opacity: 0;
+    }
+    100%{
+        display: none;
+    }
+}
