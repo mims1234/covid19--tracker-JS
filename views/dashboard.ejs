@@ -7,11 +7,107 @@
     <link rel="stylesheet" href="/css/dashboard.css">
 </head>
 <body>
-    <div class="background">
-        <div class="container">
-            <h1><span>COVID</span>-<span>19</span> TRACKER</h1>
+
+    <!-- TOP BAR container -->
+    <div class="top_bar">
+        <form action="/">
+            <button id="title-name"><span id="span">COVID-19</span> TRACKER</button>
+        </form>
+        <div class="timeline-bar">
+            <label for="vol" id="timeline-covid">Timeline</label>
+            <input type="range" id="vol" name="vol" min="0" max="2" value=0 oninput="colorchange(this.value)" onchange="colorchange(this.value)">
         </div>
     </div>
-    <!-- <script src="/js/particle.js"></script> -->
+
+    <!-- MID BAR container -->
+    <div class="mid_bar">
+        <div class="numcard">
+            <div class="topcard">
+                <p class="cases">Cases</p>
+                <p id="total-case">1,000,000</p>
+            </div>
+            <hr>
+            <div class="bottomcard">
+                <p>Latest  <span id="daily-case">+2,000</span></p>
+            </div>
+        </div>
+        <div class="numcard">
+            <div class="topcard">
+                <p class="death">Death</p>
+                <p id="total-case">1,000,000</p>
+            </div>
+            <hr>
+            <div class="bottomcard">
+                <p>Latest  <span id="daily-case">+2,000</span></p>
+            </div>
+        </div>
+        <div class="numcard">
+            <div class="topcard">
+                <p class="recovery">Recovery</p>
+                <p id="total-case">1,000,000</p>
+            </div>
+            <hr>
+            <div class="bottomcard">
+                <p>Latest  <span id="daily-case">+2,000</span></p>
+            </div>
+        </div>
+        <div class="drop-box">
+            <p id="country-select-title">Select Country / Global</p>
+            <div class="box">
+                <select id="country" name="country">
+                    <%- include('partials/countries-list.ejs') %>
+                </select>
+            </div>
+      </div>
+  </div>
+
+   <!-- GRAPH BAR container -->
+   <div class="graph_bar">
+    <canvas class="graph-canvas-main" id="myChart" width="0" height="0"></canvas>
+    <div class="graph-canvas-side">
+        <h1>SIDE GRAPH</h1>
+    </div>
+</div>
+
+<script>
+    bodyPart = document.getElementById("span")
+
+    function colorchange(value){
+        if(value==0) bodyPart.innerHTML = 'COVID-19';
+        if(value==1) bodyPart.innerHTML = 'COVID-20';
+        if(value==2) bodyPart.innerHTML = 'COVID-21';
+    }
+</script>
+<!-- CHARTJS -->
+<script src="/js/Chart.bundle.min.js"></script>
+<script>
+    var ctx = document.getElementById('myChart').getContext('2d');
+    console.log(ctx)
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            datasets: [{
+                label: 'Deaths',
+                data: [1, 8, 23, 51, 101, 132],
+                backgroundColor: 'rgb(255, 0, 34, 0.1)',
+                borderColor: 'rgb(255, 0, 34)',
+                borderWidth: 1
+            },{
+                label: 'Recovery',
+                data: [0, 11, 12, 54, 108, 200],
+                backgroundColor: 'rgb(16, 255, 0, 0.1)',
+                borderColor: 'rgb(16, 255, 0)',
+                borderWidth: 1
+            },{
+                label: 'Cases',
+                data: [1, 19, 35, 105, 209, 332],
+                backgroundColor: 'rgb(255, 221, 0, 0.1)',
+                borderColor: 'rgb(255, 221, 0)',
+                borderWidth: 1
+            }]
+        },
+    });
+</script>
 </body>
 </html>

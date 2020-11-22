@@ -4,5 +4,6 @@ package-lock.json
 .vscode/settings.json
 test.js
 dashboard.css
+dropdown.css
 dashboard.html
 .gitignore
