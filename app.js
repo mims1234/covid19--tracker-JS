@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 require("dotenv").config();
 
 const app = express();
-const port = process.env.PORT; 
+const port = (process.env.PORT)?process.env.PORT:3050; 
 
 const {getIndexPage, getDashboardPage, getTestPage} = require(`./routes/pages`);
 
@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 app.use(express.static(__dirname+'/public'))
 
 app.get("/", getIndexPage);
-app.get("/dashboard", getDashboardPage)
+app.all("/dashboard", getDashboardPage)
 app.get("/test", getTestPage)
 
 app.listen(port, () => {

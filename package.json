@@ -4,8 +4,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js",
-    "dev": "node app.js"
+    "start": "npm run open && nodemon app.js",
+    "dev": "node app.js",
+    "open": "start http://localhost:3050/"
   },
   "keywords": [],
   "author": "",
@@ -18,6 +19,7 @@
     "express": "^4.17.1",
     "moment": "^2.29.1",
     "nodemon": "^2.0.6",
+    "number-formatter": "^1.2.0",
     "path": "^0.12.7",
     "superagent": "^6.1.0"
   }

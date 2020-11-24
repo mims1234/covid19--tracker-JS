@@ -4,110 +4,262 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Covid-19 Tracker</title>
-    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="/css/dashboard.css?version=1.0">
+    <script src="/js/4651311c66.js"></script>
 </head>
 <body>
 
     <!-- TOP BAR container -->
     <div class="top_bar">
         <form action="/">
-            <button id="title-name"><span id="span">COVID-19</span> TRACKER</button>
+            <button id="title-name"><span id="title-name-span">COVID-19</span> TRACKER</button>
         </form>
         <div class="timeline-bar">
-            <label for="vol" id="timeline-covid">Timeline</label>
-            <input type="range" id="vol" name="vol" min="0" max="2" value=0 oninput="colorchange(this.value)" onchange="colorchange(this.value)">
+            <label for="max" id="timeline-covid"> <button id="left-arrow" onclick="leftclick()"><i class="fas fa-angle-left"></i></button> <span id="timeline-start"></span> - <span id="timeline-end">  </span> <button id="right-arrow" onclick="rightclick()"><i class="fas fa-angle-right"></i></button> </label>
+            <input type="range" id="max" name="max" min="8" max="" value=0 oninput="datamax(this.value)" onchange="datamax(this.value)">
         </div>
+        <div class="drop-box-all">
+            <p id="type-select-title">Select Type</p>
+            <div class="box-1">
+                <select id="type" name="type" onchange="typeChange(this.value)">
+                    <option value="Daily">Daily</option>
+                    <option value="Weekly">Weekly</option>
+                    <option value="Monthly">Monthly</option>
+                </select>
+            </div>
+      </div>
     </div>
 
     <!-- MID BAR container -->
     <div class="mid_bar">
         <div class="numcard">
             <div class="topcard">
-                <p class="cases">Cases</p>
-                <p id="total-case">1,000,000</p>
+                <p class="cases">Cases</p><p class="date-class" id="date-class1"></p>
+                <p class="all-case" id="total-cases">0</p>
             </div>
             <hr>
             <div class="bottomcard">
-                <p>Latest  <span id="daily-case">+2,000</span></p>
+                <p class="type-text">Daily </p><span class="daily-case" id="latest-cases">+0</span>
             </div>
         </div>
         <div class="numcard">
             <div class="topcard">
-                <p class="death">Death</p>
-                <p id="total-case">1,000,000</p>
+                <p class="death">Death</p><p class="date-class"id="date-class2"></p>
+                <p class="all-case" id="total-deaths">0</p>
             </div>
             <hr>
             <div class="bottomcard">
-                <p>Latest  <span id="daily-case">+2,000</span></p>
+                <p class="type-text">Daily </p><span class="daily-case" id="latest-deaths">+0</span>
             </div>
         </div>
         <div class="numcard">
             <div class="topcard">
-                <p class="recovery">Recovery</p>
-                <p id="total-case">1,000,000</p>
+                <p class="recovery">Recovery</p><p class="date-class" id="date-class3"></p>
+                <p class="all-case" id="total-recs">0</p>
             </div>
             <hr>
             <div class="bottomcard">
-                <p>Latest  <span id="daily-case">+2,000</span></p>
+                <p class="type-text">Daily </p><span class="daily-case" id="latest-recs">+0</span>
             </div>
         </div>
         <div class="drop-box">
             <p id="country-select-title">Select Country / Global</p>
-            <div class="box">
+            <form action="dashboard" method="POST" class="box">
                 <select id="country" name="country">
+                    <option value="<%=COUNTRY%>" selected><%=COUNTRY%></option>
                     <%- include('partials/countries-list.ejs') %>
                 </select>
-            </div>
+                <button id="submit-button-arrow"><i class="fas fa-angle-right"></i></button>
+            </form>
       </div>
   </div>
 
    <!-- GRAPH BAR container -->
    <div class="graph_bar">
-    <canvas class="graph-canvas-main" id="myChart" width="0" height="0"></canvas>
+    <div class="graph-canvas-main">
+        <canvas id="myChart" width="100%" height="50%"></canvas>
+    </div>
     <div class="graph-canvas-side">
-        <h1>SIDE GRAPH</h1>
+        <h1>Side Graph</h1>
     </div>
 </div>
 
-<script>
-    bodyPart = document.getElementById("span")
-
-    function colorchange(value){
-        if(value==0) bodyPart.innerHTML = 'COVID-19';
-        if(value==1) bodyPart.innerHTML = 'COVID-20';
-        if(value==2) bodyPart.innerHTML = 'COVID-21';
-    }
-</script>
 <!-- CHARTJS -->
 <script src="/js/Chart.bundle.min.js"></script>
 <script>
-    var ctx = document.getElementById('myChart').getContext('2d');
-    console.log(ctx)
-    var myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-            datasets: [{
-                label: 'Deaths',
-                data: [1, 8, 23, 51, 101, 132],
-                backgroundColor: 'rgb(255, 0, 34, 0.1)',
-                borderColor: 'rgb(255, 0, 34)',
-                borderWidth: 1
-            },{
-                label: 'Recovery',
-                data: [0, 11, 12, 54, 108, 200],
-                backgroundColor: 'rgb(16, 255, 0, 0.1)',
-                borderColor: 'rgb(16, 255, 0)',
-                borderWidth: 1
-            },{
-                label: 'Cases',
-                data: [1, 19, 35, 105, 209, 332],
-                backgroundColor: 'rgb(255, 221, 0, 0.1)',
-                borderColor: 'rgb(255, 221, 0)',
-                borderWidth: 1
-            }]
-        },
-    });
+        max_range = document.getElementById('max')
+
+        timeline_start = document.getElementById('timeline-start')
+        timeline_end = document.getElementById('timeline-end')
+
+        latest_cases = document.getElementById('latest-cases')
+        latest_deaths = document.getElementById('latest-deaths')
+        latest_recs = document.getElementById('latest-recs')
+
+        total_cases = document.getElementById('total-cases')
+        total_deaths = document.getElementById('total-deaths')
+        total_recs = document.getElementById('total-recs')
+
+        date_class1 = document.getElementById('date-class1')
+        date_class2 = document.getElementById('date-class2')
+        date_class3 = document.getElementById('date-class3')
+
+        type = document.getElementById("type");
+        type_text = document.querySelectorAll(".type-text");
+
+        All_Data_Cases = []
+        All_Data_Deaths = []
+        All_Data_Rec = []
+        All_Data_Dates = []
+
+        Total_Data_Cases = []
+        Total_Data_Deaths = []
+        Total_Data_Recs = []
+
+        MAX_RANGE=8;
+
+        function typeChange(value){
+            for(i in type_text){
+                type_text[i].innerHTML = `${value}`;
+                max_range.value=0;
+            }
+            switch(value){
+                case "Weekly":
+                    All_Data_Cases = [<%=case_data_arr_week%>];
+                    All_Data_Deaths = [<%=death_data_arr_week%>];
+                    All_Data_Rec = [<%=rec_data_arr_week%>];
+                    All_Data_Dates = <%- JSON.stringify(labels_arr_week) %>;
+
+                    Total_Data_Cases = [<%=total_case_data_arr_week%>];
+                    Total_Data_Deaths = [<%=total_death_data_arr_week%>];
+                    Total_Data_Recs = [<%=total_rec_data_arr_week%>];
+                    max_range.max = <%=WEEKS%>;
+                break;
+                case "Monthly":
+                    All_Data_Cases = [<%=case_data_arr_month%>];
+                    All_Data_Deaths = [<%=death_data_arr_month%>];
+                    All_Data_Rec = [<%=rec_data_arr_month%>];
+                    All_Data_Dates = <%- JSON.stringify(labels_arr_month) %>;
+
+                    Total_Data_Cases = [<%=total_case_data_arr_month%>];
+                    Total_Data_Deaths = [<%=total_death_data_arr_month%>];
+                    Total_Data_Recs = [<%=total_rec_data_arr_month%>];
+                    max_range.max = <%=MONTHS%>;
+                break;
+                case "Daily":
+                default:
+                    All_Data_Cases = [<%=case_data_arr_day%>]  ; 
+                    All_Data_Deaths = [<%=death_data_arr_day%>];
+                    All_Data_Rec = [<%=rec_data_arr_day%>];
+                    All_Data_Dates = <%- JSON.stringify(labels_arr_day) %>;
+
+                    Total_Data_Cases = [<%=total_case_data_arr_day%>];
+                    Total_Data_Deaths = [<%=total_death_data_arr_day%>];
+                    Total_Data_Recs = [<%=total_rec_data_arr_day%>];
+                    max_range.max = <%=DAYS%>;
+            }
+            datamax(8)
+        }
+
+        function numberWithCommas(x) {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+        var myChart=null;
+
+        createChart = async() => {
+            if(myChart!=null){
+                myChart.destroy();
+            }
+            var ctx = document.getElementById('myChart').getContext('2d');
+            myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: Data_Dates,
+                    datasets: [
+                        {
+                        label: 'Deaths',
+                        data: Data_Deaths,
+                        backgroundColor: 'rgb(255, 0, 34, 0.1)',
+                        borderColor: 'rgb(255, 0, 34)',
+                        borderWidth: 1
+                    },{
+                        label: 'Recovery',
+                        data: Data_Rec,
+                        backgroundColor: 'rgb(16, 255, 0, 0.1)',
+                        borderColor: 'rgb(16, 255, 0)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Cases',
+                        data: Data_Cases,
+                        backgroundColor: 'rgb(255, 221, 0, 0.1)',
+                        borderColor: 'rgb(255, 221, 0)',
+                        borderWidth: 1
+                    }]
+                },
+            });
+        }
+
+        window.addEventListener("keydown", function (event) {
+            if (event.defaultPrevented) {
+                return;
+            }
+            switch (event.key) {
+                case "ArrowLeft": leftclick()
+                break;
+                case "ArrowRight": rightclick()
+                break;
+                default:
+                return; 
+            }
+            event.preventDefault();
+            }, true);
+
+        function leftclick(){
+            if(parseInt(max_range.value)>8)  max_range.value--
+            datamax(max_range.value)
+        }
+
+        function rightclick(){
+            if(parseInt(max_range.value)<All_Data_Cases.length)  max_range.value++
+            datamax(max_range.value)
+        }
+
+        function datamax(value){
+            MAX_RANGE=value;
+
+            Data_Cases = All_Data_Cases.slice(MAX_RANGE-8,MAX_RANGE-1)
+            Data_Deaths = All_Data_Deaths.slice(MAX_RANGE-8,MAX_RANGE-1)
+            Data_Rec = All_Data_Rec.slice(MAX_RANGE-8,MAX_RANGE-1)
+            Data_Dates = All_Data_Dates.slice(MAX_RANGE-8,MAX_RANGE-1)
+
+            TData_Cases = Total_Data_Cases.slice(MAX_RANGE-8,MAX_RANGE-1)
+            TData_Deaths = Total_Data_Deaths.slice(MAX_RANGE-8,MAX_RANGE-1)
+            TData_Rec = Total_Data_Recs.slice(MAX_RANGE-8,MAX_RANGE-1)
+
+            timeline_start.innerHTML = Data_Dates[0];
+            timeline_end.innerHTML = Data_Dates[Data_Dates.length-1];
+
+            date_class1.innerHTML = `On ${Data_Dates[0]}`;
+            date_class2.innerHTML = `On ${Data_Dates[0]}`;
+            date_class3.innerHTML = `On ${Data_Dates[0]}`;
+
+            if(parseInt(Data_Deaths[Data_Deaths.length-1])>=0) latest_cases.innerHTML = `+${numberWithCommas(Data_Cases[0])}`;
+            else latest_cases.innerHTML = `${numberWithCommas(Data_Cases[0])}`;
+            if(parseInt(Data_Deaths[Data_Deaths.length-1])>=0) latest_deaths.innerHTML = `+${numberWithCommas(Data_Deaths[0])}`;
+            else latest_deaths.innerHTML = `${numberWithCommas(Data_Deaths[0])}`;
+            if(parseInt(Data_Deaths[Data_Deaths.length-1])>=0) latest_recs.innerHTML = `+${numberWithCommas(Data_Rec[0])}`
+            else latest_recs.innerHTML = `${numberWithCommas(Data_Rec[0])}`
+
+            total_cases.innerHTML = numberWithCommas(TData_Cases[1]);
+            total_deaths.innerHTML = numberWithCommas(TData_Deaths[1]);
+            total_recs.innerHTML = numberWithCommas(TData_Rec[1]);
+
+            createChart()
+        }
+
+        typeChange("Daily")
 </script>
 </body>
 </html>

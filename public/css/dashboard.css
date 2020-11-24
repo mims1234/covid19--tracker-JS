@@ -40,7 +40,8 @@ body{
 /* TOP BAR CSS */
 .top_bar {
     display: flex;
-    margin:2% 0%;
+    margin-top: 1%;
+    margin-bottom: 0.9%;
 }
 
 .timeline-bar {
@@ -49,11 +50,64 @@ body{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 80%;
-    min-width: 550px;
+    width: 50%;
+    min-width: 380px;
 }
 
-#vol {
+.drop-box-all {
+    /* margin-left: 20px; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+  
+.box-1 select {
+    /* position: absolute; */
+    background-color: #232323;
+    color: white;
+    padding: 6px;
+    width: 10%;
+    min-width: 200px;
+    border: none;
+    font-size: 16px;
+    box-shadow: 15px 20px 20px rgb(0, 0, 0);
+}
+
+#left-arrow, #right-arrow {
+    background-color: transparent;
+    outline: none;
+    color:white;
+    border: none;
+    font-size: 22px;
+    transition: 0.3s ease-in-out;
+}
+
+#left-arrow {
+    margin-right:10px;
+}
+
+#right-arrow {
+    margin-left:10px;
+}
+
+#left-arrow:hover, #right-arrow:hover {
+    color:#fc1616;
+}
+
+#left-arrow:focus, #right-arrow:focus {
+    color:#51ca00;
+}
+
+
+#type-select-title {
+    color:white;
+    font-size:16px;
+    font-weight: bold;
+    margin:10px 0px;
+}
+
+#max, #min {
     position: relative;
     width:100%;
 }
@@ -73,33 +127,58 @@ body{
     font-size-adjust: initial;
 }
 
-#span, #daily-case{
-    animation: colorfade 5s infinite ease-in-out;
+#title-name-span{
+    animation: colorfadered 5s infinite ease-in-out;
 }
 
-@keyframes colorfade{
+@keyframes colorfadered{
     0%{
-        color:#ffffff;
+        color:#f87e7e;
     }
     50%{
         color:#ff0000;
     }
     100%{
-        color:#ffffff;
+        color:#f87e7e;
+    }
+}
+
+@keyframes colorfadeyellow{
+    0%{
+        color:rgb(252, 252, 152);
+    }
+    50%{
+        color:yellow;
+    }
+    100%{
+        color:rgb(252, 252, 152);
+    }
+}
+
+@keyframes colorfadegreen{
+    0%{
+        color:rgb(161, 245, 161);
+    }
+    50%{
+        color:green;
+    }
+    100%{
+        color:rgb(161, 245, 161);
     }
 }
 
 /* MID BAR CSS */
 .mid_bar {
     display: flex;
-    margin:2% 0%;
+    margin-top: 0.1%;
+    margin-bottom: 2%;
     color:white;
     font-family:'Bahnschrift Static Light';
 }
 
 .numcard {
     position: relative;
-    width: 25%;
+    width: 50%;
     min-width: 200px;
     height: 200px;
     margin: 0px 15px;
@@ -113,12 +192,14 @@ hr{
 }
 
 .topcard {
-    padding:25px 15px;
+    padding:15px 15px;
     font-weight:bold;
     font-size:38px;
 }
 
 .bottomcard {
+    display: flex;
+    flex-direction: row;
     padding:10px 15px;
     font-weight:bold;
     font-size:18px;
@@ -136,36 +217,80 @@ hr{
     color:green;
 }
 
-#daily-case {
+.daily-case {
     color:white;
     padding-left:15px;
 }
 
-#total-case {
+.all-case {
     color:white;
 }
 
 .drop-box {
     margin-left: 20px;
 }
+
+.box {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
   
 .box select {
-    position: absolute;
+    position: relative;
     background-color: #232323;
     color: white;
     padding: 12px;
     width: 13%;
     min-width: 200px;
     border: none;
-    font-size: 22px;
+    margin: 5px;
+    font-size: 18px;
     box-shadow: 15px 20px 20px rgb(0, 0, 0);
+    transition: 0.3s ease-in-out;
+}
+
+#latest-cases {
+    animation: colorfadeyellow 5s infinite ease-in-out;
+}
+
+#latest-deaths {
+    animation: colorfadered 5s infinite ease-in-out;
+}
+
+#latest-recs {
+    animation: colorfadegreen 5s infinite ease-in-out;
 }
 
 #country-select-title {
     color:white;
-    font-size:22px;
+    text-align: center;
+    font-size:18px;
     font-weight: bold;
-    margin:40px 0px;
+    margin:30px 0px;
+}
+
+#submit-button-arrow {
+    color: white;
+    background-color: transparent;
+    border: none;
+    margin: 5px;
+    font-size: 50px;
+    transition: 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+#submit-button-arrow:hover {
+    /* background-color: #afafaf; */
+    color:rgb(0, 226, 0);
+}
+
+.date-class {
+    margin:10px 0px;
+    color:#adadad;
+    font-size:14px;
+    font-weight: bold;
+    text-align: end;
 }
 
 /* GRAPH BAR CSS */
@@ -176,15 +301,22 @@ hr{
 
 .graph-canvas-main {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 200px;
+    height: 450px;
     width: 70%;
     min-width: 600px;
     min-height: 200px;
     margin-right:10px;
-    /* background: darkblue; */
-    color:white
+    /* background-color: #232323; */
+    /* box-shadow: 15px 20px 20px rgb(0, 0, 0); */
+    /* color:white */
+}
+
+#myChart {
+    position: relative;
+    /* background-color: #232323; */
 }
 
 .graph-canvas-side {
@@ -197,6 +329,7 @@ hr{
     min-height: 450px;
     margin-left:10px;
     background: darkred;
+    box-shadow: 15px 20px 20px rgb(0, 0, 0);
     color:white
 }
 
