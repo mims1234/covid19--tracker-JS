@@ -79,13 +79,14 @@ class Particle {
 //create particle array
 function init(){
     particlesArray = [];
+    integersArray = [-1,1];
     let numberOfParticles = (canvas.height * canvas.width) / 9000;
     for (let i=0;i< numberOfParticles;i++){
         let size = (Math.random() * 5) + 1;
         let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
         let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
-        let directionX = (Math.random() * 2)
-        let directionY = (Math.random() * 2)
+        let directionX = (Math.random() * 1 * integersArray[Math.floor(Math.random() * integersArray.length)])
+        let directionY = (Math.random() * 1 * integersArray[Math.floor(Math.random() * integersArray.length)])
         let color = '#FFFFFF'
 
         particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
@@ -109,7 +110,16 @@ function connnect() {
     for(let a=0; a<particlesArray.length; a++) {
         for(let b=a; b<particlesArray.length; b++) {
             let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) + ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
-            if(distance < (canvas.width/7) * (canvas.height/7)) {
+            if(distance < (canvas.width/30) * (canvas.height/30)) {
+                opactityValue = 0.75 - (distance/20000);
+                ctx.strokeStyle=`rgba(248, 1, 1, ${opactityValue})`;
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+                ctx.stroke();
+            }
+            else if(distance < (canvas.width/7) * (canvas.height/7)) {
                 opactityValue = 0.75 - (distance/20000);
                 ctx.strokeStyle=`rgba(80,80,80,${opactityValue})`;
                 ctx.lineWidth = 1;
