@@ -290,11 +290,11 @@
                 date_class2.innerHTML = `On ${Data_Dates[modIndex]}`;
                 date_class3.innerHTML = `On ${Data_Dates[modIndex]}`;
 
-                if(parseInt(Data_Deaths[Data_Deaths.length-1])>=0) latest_cases.innerHTML = `+${numberWithCommas(Data_Cases[modIndex])}`;
+                if(parseInt(Data_Cases[0])>=0) latest_cases.innerHTML = `+${numberWithCommas(Data_Cases[modIndex])}`;
                 else latest_cases.innerHTML = `${numberWithCommas(Data_Cases[modIndex])}`;
-                if(parseInt(Data_Deaths[Data_Deaths.length-1])>=0) latest_deaths.innerHTML = `+${numberWithCommas(Data_Deaths[modIndex])}`;
+                if(parseInt(Data_Deaths[0])>=0) latest_deaths.innerHTML = `+${numberWithCommas(Data_Deaths[modIndex])}`;
                 else latest_deaths.innerHTML = `${numberWithCommas(Data_Deaths[modIndex])}`;
-                if(parseInt(Data_Deaths[Data_Deaths.length-1])>=0) latest_recs.innerHTML = `+${numberWithCommas(Data_Rec[modIndex])}`
+                if(parseInt(Data_Rec[0])>=0) latest_recs.innerHTML = `+${numberWithCommas(Data_Rec[modIndex])}`
                 else latest_recs.innerHTML = `${numberWithCommas(Data_Rec[modIndex])}`
 
                 total_cases.innerHTML = numberWithCommas(TData_Cases[modIndex]);
@@ -305,11 +305,11 @@
                 date_class2.innerHTML = `On ${Data_Dates[0]}`;
                 date_class3.innerHTML = `On ${Data_Dates[0]}`;
 
-                if(parseInt(Data_Deaths[Data_Deaths.length-1])>=0) latest_cases.innerHTML = `+${numberWithCommas(Data_Cases[0])}`;
+                if(parseInt(Data_Cases[0])>=0) latest_cases.innerHTML = `+${numberWithCommas(Data_Cases[0])}`;
                 else latest_cases.innerHTML = `${numberWithCommas(Data_Cases[0])}`;
-                if(parseInt(Data_Deaths[Data_Deaths.length-1])>=0) latest_deaths.innerHTML = `+${numberWithCommas(Data_Deaths[0])}`;
+                if(parseInt(Data_Deaths[0])>=0) latest_deaths.innerHTML = `+${numberWithCommas(Data_Deaths[0])}`;
                 else latest_deaths.innerHTML = `${numberWithCommas(Data_Deaths[0])}`;
-                if(parseInt(Data_Deaths[Data_Deaths.length-1])>=0) latest_recs.innerHTML = `+${numberWithCommas(Data_Rec[0])}`
+                if(parseInt(Data_Rec[0])>=0) latest_recs.innerHTML = `+${numberWithCommas(Data_Rec[0])}`
                 else latest_recs.innerHTML = `${numberWithCommas(Data_Rec[0])}`
 
                 total_cases.innerHTML = numberWithCommas(TData_Cases[0]);
