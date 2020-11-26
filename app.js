@@ -16,7 +16,8 @@ app.use(bodyParser.json());
 app.use(express.static(__dirname+'/public'))
 
 app.get("/", getIndexPage);
-app.all("/dashboard", getDashboardPage)
+app.all("/dashboard/:country/:status", getDashboardPage)
+app.all("/dashboard/", getDashboardPage)
 app.get("/test", getTestPage)
 
 app.listen(port, () => {

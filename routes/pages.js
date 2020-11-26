@@ -38,14 +38,23 @@ module.exports = {
         let total_death_data_arr_month = [];
         let total_rec_data_arr_month = [];
 
-        api_run = async() =>{
+        if(req.params.status=="false"){
+            COUNTRY="All"
+            ERRORMSG = req.params.country
+            console.log('Redirecting to Default page.... ... .. .')
+        } else {
+            if(req.body.country==null) COUNTRY="All"
+            else COUNTRY=req.body.country 
+            ERRORMSG = "NONE"
+        }
+
+        if(COUNTRY==="Global") COUNTRY="All"
+
+        api_run = async(COUNTRY,ERRORMSG) =>{
             Now = moment().format('YYYY/MM/DD');
             Now = moment(Now.split("/"))
-            Start = moment(['2020','1','22'])
+            Start = moment(['2020','1','21'])
             RANGE = Now.diff(Start, 'day')
-
-            if(req.body.country==null)COUNTRY="All"
-            else COUNTRY=req.body.country 
 
             DAYS=RANGE
             LINK = `https://corona.lmao.ninja/v2/historical/${COUNTRY}?lastdays=${DAYS}`
@@ -99,11 +108,11 @@ module.exports = {
                         death_data_arr_day.push((parseInt(Deaths[i+1]-Deaths[i])))
                         rec_data_arr_day.push((parseInt(Rec[i+1]-Rec[i])))
 
-                        total_case_data_arr_day.push(Cases[i])
-                        total_death_data_arr_day.push(Deaths[i])
-                        total_rec_data_arr_day.push(Rec[i])
+                        total_case_data_arr_day.push(Cases[i+1])
+                        total_death_data_arr_day.push(Deaths[i+1])
+                        total_rec_data_arr_day.push(Rec[i+1])
 
-                        labels_arr_day.push(moment(Dates[i],'L').format('LL'))
+                        labels_arr_day.push(moment(Dates[i+1],'L').format('LL'))
                         ++counterRender;
                         
                         if(counterRender === RANGE){
@@ -131,18 +140,18 @@ module.exports = {
                                 total_rec_data_arr_month,
                                 RANGE,
                                 DAYS,WEEKS,MONTHS,
-                                COUNTRY
+                                COUNTRY,
+                                ERRORMSG
                             });
                         }
                     }
 
                 } catch(e) {
-                    // console.log(e)
-                    console.log("ERROR MESSAGE")
-                    res.send('ERROR API');
+                    console.log(`ERROR: ${COUNTRY} data not available !!\n`)
+                    res.redirect(`/dashboard/${COUNTRY}/false`)
                 }
             },1500)
         }
-        await api_run()
+        await api_run(COUNTRY,ERRORMSG)
     }
 }

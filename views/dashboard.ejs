@@ -8,7 +8,6 @@
     <script src="/js/4651311c66.js"></script>
 </head>
 <body>
-
     <!-- TOP BAR container -->
     <div class="top_bar">
         <form action="/">
@@ -71,6 +70,9 @@
                 </select>
                 <button id="submit-button-arrow"><i class="fas fa-angle-right"></i></button>
             </form>
+            <% if(ERRORMSG!="NONE") {%>
+                <p id="country-select-title-error"><%-ERRORMSG%><br>Data Not Avaialable</p>
+            <% } %>
       </div>
   </div>
 
@@ -79,15 +81,15 @@
     <div class="graph-canvas-main">
         <canvas id="myChart" width="100%" height="30%"></canvas>
     </div>
-    <!-- <div class="graph-canvas-side">
-        <h1>Side Graph</h1>
-    </div> -->
 </div>
 
 <!-- CHARTJS -->
 <script src="/js/Chart.bundle.min.js"></script>
 <script>
         max_range = document.getElementById('max')
+
+        left_arrow = document.getElementById("left-arrow")
+        right_arrow = document.getElementById("right-arrow")
 
         timeline_start = document.getElementById('timeline-start')
         timeline_end = document.getElementById('timeline-end')
@@ -117,6 +119,7 @@
         Total_Data_Recs = []
 
         MAX_RANGE=8;
+        GraphRange=5;
 
         function typeChange(value){
             for(i in type_text){
@@ -133,7 +136,7 @@
                     Total_Data_Cases = [<%=total_case_data_arr_week%>];
                     Total_Data_Deaths = [<%=total_death_data_arr_week%>];
                     Total_Data_Recs = [<%=total_rec_data_arr_week%>];
-                    max_range.max = <%=WEEKS%>;
+                    max_range.max = <%=WEEKS%> + GraphRange;
                 break;
                 case "Monthly":
                     All_Data_Cases = [<%=case_data_arr_month%>];
@@ -144,7 +147,7 @@
                     Total_Data_Cases = [<%=total_case_data_arr_month%>];
                     Total_Data_Deaths = [<%=total_death_data_arr_month%>];
                     Total_Data_Recs = [<%=total_rec_data_arr_month%>];
-                    max_range.max = <%=MONTHS%>;
+                    max_range.max = <%=MONTHS%> + GraphRange;
                 break;
                 case "Daily":
                 default:
@@ -156,7 +159,7 @@
                     Total_Data_Cases = [<%=total_case_data_arr_day%>];
                     Total_Data_Deaths = [<%=total_death_data_arr_day%>];
                     Total_Data_Recs = [<%=total_rec_data_arr_day%>];
-                    max_range.max = <%=DAYS%>;
+                    max_range.max = <%=DAYS%> + GraphRange;
             }
             datamax(8)
         }
@@ -182,24 +185,49 @@
                         data: Data_Deaths,
                         backgroundColor: 'rgb(255, 0, 34, 0.1)',
                         borderColor: 'rgb(255, 0, 34)',
-                        borderWidth: 1
+                        borderWidth: 3,
+                        pointHoverBackgroundColor:"rgb(255, 0, 34)",
+                        pointHoverRadius:7,
                     },{
                         label: 'Recovery',
                         data: Data_Rec,
                         backgroundColor: 'rgb(16, 255, 0, 0.1)',
                         borderColor: 'rgb(16, 255, 0)',
-                        borderWidth: 1
+                        borderWidth: 3,
+                        pointHoverBackgroundColor:"rgb(16, 255, 0)",
+                        pointHoverRadius:7,
                     },
                     {
                         label: 'Cases',
                         data: Data_Cases,
                         backgroundColor: 'rgb(255, 221, 0, 0.1)',
                         borderColor: 'rgb(255, 221, 0)',
-                        borderWidth: 1
+                        borderWidth: 3,
+                        pointHoverBackgroundColor:"rgb(255, 221, 0)",
+                        pointHoverRadius:7,
                     }]
                 },
                 options: {
-                    animation: false
+                    legend: {
+                        labels: {
+                            fontColor: 'white',
+                            fontSize:14,
+                            usePointStyle:true,
+                        }
+                    },
+                    animation: {
+                            duration: 0 // general animation time
+                        },
+                    hover: {
+                        animationDuration: 250 // duration of animations when hovering an item
+                    },
+                    responsiveAnimationDuration: 1000,
+                    // events: ['touchmove','mousemove'],
+                    tooltips: {
+                        mode: 'index',
+                        position:"average",
+                        titleFontSize:12
+                    }
                 }
             });
         }
@@ -222,16 +250,20 @@
         function leftclick(){
             if(parseInt(max_range.value)>8)  max_range.value--
             datamax(max_range.value)
+            left_arrow.focus()
         }
 
         function rightclick(){
-            if(parseInt(max_range.value)<All_Data_Cases.length)  max_range.value++
+            if(parseInt(max_range.value)<All_Data_Cases.length+GraphRange)  max_range.value++
             datamax(max_range.value)
+            right_arrow.focus()
         }
 
         function datamax(value){
-            MAX_RANGE=value;
+            let newval = value
+            if(value>=All_Data_Cases.length) value = All_Data_Cases.length-1
 
+            MAX_RANGE=value;
             Data_Cases = All_Data_Cases.slice(MAX_RANGE-8,MAX_RANGE-1)
             Data_Deaths = All_Data_Deaths.slice(MAX_RANGE-8,MAX_RANGE-1)
             Data_Rec = All_Data_Rec.slice(MAX_RANGE-8,MAX_RANGE-1)
@@ -244,23 +276,47 @@
             timeline_start.innerHTML = Data_Dates[0];
             timeline_end.innerHTML = Data_Dates[Data_Dates.length-1];
 
-            date_class1.innerHTML = `On ${Data_Dates[0]}`;
-            date_class2.innerHTML = `On ${Data_Dates[0]}`;
-            date_class3.innerHTML = `On ${Data_Dates[0]}`;
+            if(newval==All_Data_Cases.length+GraphRange) timeline_end.style.color = "red"
+            if(newval==8) timeline_start.style.color = "red"
+            else {
+                timeline_start.style.color = "white"
+                timeline_end.style.color = "white"
+            }
+    
 
-            if(parseInt(Data_Deaths[Data_Deaths.length-1])>=0) latest_cases.innerHTML = `+${numberWithCommas(Data_Cases[0])}`;
-            else latest_cases.innerHTML = `${numberWithCommas(Data_Cases[0])}`;
-            if(parseInt(Data_Deaths[Data_Deaths.length-1])>=0) latest_deaths.innerHTML = `+${numberWithCommas(Data_Deaths[0])}`;
-            else latest_deaths.innerHTML = `${numberWithCommas(Data_Deaths[0])}`;
-            if(parseInt(Data_Deaths[Data_Deaths.length-1])>=0) latest_recs.innerHTML = `+${numberWithCommas(Data_Rec[0])}`
-            else latest_recs.innerHTML = `${numberWithCommas(Data_Rec[0])}`
+            if(newval>value) {
+                modIndex = newval%value
+                date_class1.innerHTML = `On ${Data_Dates[modIndex]}`;
+                date_class2.innerHTML = `On ${Data_Dates[modIndex]}`;
+                date_class3.innerHTML = `On ${Data_Dates[modIndex]}`;
 
-            total_cases.innerHTML = numberWithCommas(TData_Cases[1]);
-            total_deaths.innerHTML = numberWithCommas(TData_Deaths[1]);
-            total_recs.innerHTML = numberWithCommas(TData_Rec[1]);
+                if(parseInt(Data_Deaths[Data_Deaths.length-1])>=0) latest_cases.innerHTML = `+${numberWithCommas(Data_Cases[modIndex])}`;
+                else latest_cases.innerHTML = `${numberWithCommas(Data_Cases[modIndex])}`;
+                if(parseInt(Data_Deaths[Data_Deaths.length-1])>=0) latest_deaths.innerHTML = `+${numberWithCommas(Data_Deaths[modIndex])}`;
+                else latest_deaths.innerHTML = `${numberWithCommas(Data_Deaths[modIndex])}`;
+                if(parseInt(Data_Deaths[Data_Deaths.length-1])>=0) latest_recs.innerHTML = `+${numberWithCommas(Data_Rec[modIndex])}`
+                else latest_recs.innerHTML = `${numberWithCommas(Data_Rec[modIndex])}`
 
-            console.log(Data_Dates)
-            console.log(Data_Cases)
+                total_cases.innerHTML = numberWithCommas(TData_Cases[modIndex]);
+                total_deaths.innerHTML = numberWithCommas(TData_Deaths[modIndex]);
+                total_recs.innerHTML = numberWithCommas(TData_Rec[modIndex]);
+            } else {
+                date_class1.innerHTML = `On ${Data_Dates[0]}`;
+                date_class2.innerHTML = `On ${Data_Dates[0]}`;
+                date_class3.innerHTML = `On ${Data_Dates[0]}`;
+
+                if(parseInt(Data_Deaths[Data_Deaths.length-1])>=0) latest_cases.innerHTML = `+${numberWithCommas(Data_Cases[0])}`;
+                else latest_cases.innerHTML = `${numberWithCommas(Data_Cases[0])}`;
+                if(parseInt(Data_Deaths[Data_Deaths.length-1])>=0) latest_deaths.innerHTML = `+${numberWithCommas(Data_Deaths[0])}`;
+                else latest_deaths.innerHTML = `${numberWithCommas(Data_Deaths[0])}`;
+                if(parseInt(Data_Deaths[Data_Deaths.length-1])>=0) latest_recs.innerHTML = `+${numberWithCommas(Data_Rec[0])}`
+                else latest_recs.innerHTML = `${numberWithCommas(Data_Rec[0])}`
+
+                total_cases.innerHTML = numberWithCommas(TData_Cases[0]);
+                total_deaths.innerHTML = numberWithCommas(TData_Deaths[0]);
+                total_recs.innerHTML = numberWithCommas(TData_Rec[0]);
+            }
+
             createChart()
         }
 
