@@ -52,6 +52,7 @@
 
     .desktop, .no-phone-title-span {
         animation: colorfade 5s infinite ease-in;
+        margin:10px 0px;
     }
 
     .desktop {
