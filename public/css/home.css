@@ -23,13 +23,19 @@
 
 @media only screen and (max-device-width : 768px) {
 
+    *{
+        margin:0;
+        padding:0;
+        box-sizing: border-box;
+    }
+
     .bigsize { 
         display: none; 
     } 
 
     .mobile-view {
         position: absolute;
-        margin:10px;
+        padding:10px;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -46,6 +52,7 @@
 
     .desktop, .no-phone-title-span {
         animation: colorfade 5s infinite ease-in;
+        margin:10px 0px;
     }
 
     .desktop {
