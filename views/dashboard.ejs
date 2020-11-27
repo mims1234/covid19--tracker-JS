@@ -286,8 +286,10 @@
             timeline_start.innerHTML = Data_Dates[0];
             timeline_end.innerHTML = Data_Dates[Data_Dates.length-1];
 
-            if(newval==All_Data_Cases.length+GraphRange) timeline_end.style.color = "red"
-            if(newval==8) timeline_start.style.color = "red"
+            if(newval==All_Data_Cases.length+GraphRange){
+                timeline_end.style.color = "red"
+            } 
+            else if(newval==8) timeline_start.style.color = "red"
             else {
                 timeline_start.style.color = "white"
                 timeline_end.style.color = "white"
