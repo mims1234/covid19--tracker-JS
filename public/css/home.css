@@ -29,7 +29,7 @@
 
     .mobile-view {
         position: absolute;
-        margin:10px;
+        padding:10px;
         display: flex;
         flex-direction: column;
         justify-content: center;
