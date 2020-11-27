@@ -139,3 +139,20 @@ span{
         display: none;
     }
 }
+
+/* Footer CSS */
+footer {
+    position: fixed;
+    bottom: 2em;
+    text-align: center;
+    color:white;
+    font-size: 15px;
+    font-family:'Bahnschrift Static Light';
+    font-weight:normal;
+    z-index: 999;
+    width:100vw;
+}
+
+.footer-span {
+    animation: colorfade 5s infinite ease-in-out;
+}

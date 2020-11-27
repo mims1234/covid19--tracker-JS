@@ -341,3 +341,20 @@ hr{
     color:white
 }
 
+/* Footer CSS */
+footer {
+    position: fixed;
+    bottom: 2em;
+    left:2em;
+    text-align: center;
+    color:white;
+    font-size: 15px;
+    font-family:'Bahnschrift Static Light';
+    font-weight:normal;
+    z-index: 999;
+    width:100vw;
+}
+
+.footer-span {
+    animation: colorfadered 5s infinite ease-in-out;
+}
