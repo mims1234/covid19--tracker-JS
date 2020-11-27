@@ -305,6 +305,7 @@ hr{
 .graph_bar {
     display: flex;
     margin:2% 1%;
+    margin-bottom: 50px;
 }
 
 .graph-canvas-main {
@@ -343,9 +344,9 @@ hr{
 
 /* Footer CSS */
 footer {
-    position: fixed;
+    position: relative;
     bottom: 2em;
-    left:2em;
+    left:-12em;
     text-align: center;
     color:white;
     font-size: 15px;
