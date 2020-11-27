@@ -21,341 +21,366 @@
     src: local('Bahnschrift Static Bold'), url('../font/BS_Static_Bold.woff') format('woff');
 }
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing: border-box;
-}
+@media only screen and (max-device-width : 768px) {
 
-body{
-    display: flex;
-    flex-direction: column;
-    margin:0% 10%;
-    min-height: 100vh;
-    background: radial-gradient(#181818,#000000);
-    font-family:'Bahnschrift Static Light';
-    font-weight:normal;
-}
+    .bigsize { 
+        display: none; 
+    } 
 
-/* TOP BAR CSS */
-.top_bar {
-    display: flex;
-    margin-top: 1%;
-    margin-bottom: 0.9%;
-}
-
-.timeline-bar {
-    margin: 0px 50px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 50%;
-    min-width: 380px;
-}
-
-.drop-box-all {
-    /* margin-left: 20px; */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-  
-.box-1 select {
-    /* position: absolute; */
-    background-color: #232323;
-    color: white;
-    padding: 6px;
-    width: 10%;
-    min-width: 200px;
-    border: none;
-    font-size: 16px;
-    box-shadow: 15px 20px 20px rgb(0, 0, 0);
-}
-
-#left-arrow, #right-arrow {
-    background-color: transparent;
-    outline: none;
-    color:white;
-    border: none;
-    font-size: 22px;
-    transition: 0.3s ease-in-out;
-}
-
-#left-arrow {
-    margin-right:10px;
-}
-
-#right-arrow {
-    margin-left:10px;
-}
-
-#left-arrow:hover, #right-arrow:hover {
-    color:#fc1616;
-}
-
-#left-arrow:focus, #right-arrow:focus {
-    color:#51ca00;
-}
-
-
-#type-select-title {
-    color:white;
-    font-size:16px;
-    font-weight: bold;
-    margin:10px 0px;
-}
-
-#max, #min {
-    position: relative;
-    width:100%;
-}
-
-#timeline-covid {
-    color:#ffffff;
-    font-size:18px;
-    margin-bottom: 15px;
-}
-
-#title-name{
-    color:white;
-    background-color: transparent;
-    cursor: pointer;
-    border: none;
-    font-size:50px;
-    font-size-adjust: initial;
-}
-
-#title-name-span{
-    animation: colorfadered 5s infinite ease-in-out;
-}
-
-@keyframes colorfadered{
-    0%{
-        color:#f87e7e;
+    .mobile-view {
+        position: absolute;
+        margin:10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        font-size: 8px;
+        width: 100vw;
+        height: 100vh;
+        color:white;
+        font-family:'Bahnschrift Static Light';
+        font-weight: normal;
+        background: radial-gradient(#181818,#000000);
     }
-    50%{
-        color:#ff0000;
+
+    .desktop, .no-phone-title-span {
+        animation: colorfade 5s infinite ease-in;
     }
-    100%{
-        color:#f87e7e;
+
+    .desktop {
+        font-size: 100px;
+    }
+
+    @keyframes colorfade{
+        0%{
+            color:#ffffff;
+        }
+        50%{
+            color:#ff0000;
+        }
+        100%{
+            color:#ffffff;
+        }
     }
 }
 
-@keyframes colorfadeyellow{
-    0%{
-        color:rgb(252, 252, 152);
+@media only screen and (min-device-width : 768px) {
+
+    *{
+        margin:0;
+        padding:0;
+        box-sizing: border-box;
     }
-    50%{
+
+    body{
+        display: flex;
+        flex-direction: column;
+        margin:0% 10%;
+        min-height: 100vh;
+        background: radial-gradient(#181818,#000000);
+        font-family:'Bahnschrift Static Light';
+        font-weight:normal;
+    }
+
+    /* TOP BAR CSS */
+    .top_bar {
+        display: flex;
+        margin-top: 1%;
+        margin-bottom: 0.9%;
+    }
+
+    .timeline-bar {
+        margin: 0px 50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 50%;
+        min-width: 380px;
+    }
+
+    .drop-box-all {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .box-1 select {
+        background-color: #232323;
+        color: white;
+        padding: 6px;
+        width: 10%;
+        min-width: 200px;
+        border: none;
+        font-size: 16px;
+        box-shadow: 15px 20px 20px rgb(0, 0, 0);
+    }
+
+    #left-arrow, #right-arrow {
+        background-color: transparent;
+        outline: none;
+        color:white;
+        border: none;
+        font-size: 22px;
+        transition: 0.3s ease-in-out;
+    }
+
+    #left-arrow {
+        margin-right:10px;
+    }
+
+    #right-arrow {
+        margin-left:10px;
+    }
+
+    #left-arrow:hover, #right-arrow:hover {
+        color:#fc1616;
+    }
+
+    #left-arrow:focus, #right-arrow:focus {
+        color:#51ca00;
+    }
+
+
+    #type-select-title {
+        color:white;
+        font-size:16px;
+        font-weight: bold;
+        margin:10px 0px;
+    }
+
+    #max, #min {
+        position: relative;
+        width:100%;
+    }
+
+    #timeline-covid {
+        color:#ffffff;
+        font-size:18px;
+        margin-bottom: 15px;
+    }
+
+    #title-name{
+        color:white;
+        background-color: transparent;
+        cursor: pointer;
+        border: none;
+        font-size:50px;
+        font-size-adjust: initial;
+    }
+
+    #title-name-span{
+        animation: colorfadered 5s infinite ease-in-out;
+    }
+
+    @keyframes colorfadered{
+        0%{
+            color:#f87e7e;
+        }
+        50%{
+            color:#ff0000;
+        }
+        100%{
+            color:#f87e7e;
+        }
+    }
+
+    @keyframes colorfadeyellow{
+        0%{
+            color:rgb(252, 252, 152);
+        }
+        50%{
+            color:yellow;
+        }
+        100%{
+            color:rgb(252, 252, 152);
+        }
+    }
+
+    @keyframes colorfadegreen{
+        0%{
+            color:rgb(161, 245, 161);
+        }
+        50%{
+            color:green;
+        }
+        100%{
+            color:rgb(161, 245, 161);
+        }
+    }
+
+    /* MID BAR CSS */
+    .mid_bar {
+        display: flex;
+        margin-top: 0.1%;
+        margin-bottom: 2%;
+        color:white;
+        font-family:'Bahnschrift Static Light';
+    }
+
+    .numcard {
+        position: relative;
+        width: 50%;
+        min-width: 200px;
+        height: 200px;
+        margin: 0px 15px;
+        background:#232323;
+        overflow: hidden;
+        box-shadow: 15px 20px 20px rgb(0, 0, 0);
+    }
+
+    hr{
+        border: 1px solid black;
+    }
+
+    .topcard {
+        padding:15px 15px;
+        font-weight:bold;
+        font-size:38px;
+    }
+
+    .bottomcard {
+        display: flex;
+        flex-direction: row;
+        padding:10px 15px;
+        font-weight:bold;
+        font-size:18px;
+    }
+
+    .cases {
         color:yellow;
     }
-    100%{
-        color:rgb(252, 252, 152);
-    }
-}
 
-@keyframes colorfadegreen{
-    0%{
-        color:rgb(161, 245, 161);
+    .death {
+        color:#ff1919ad;
     }
-    50%{
+
+    .recovery {
         color:green;
     }
-    100%{
-        color:rgb(161, 245, 161);
+
+    .daily-case {
+        color:white;
+        padding-left:15px;
     }
-}
 
-/* MID BAR CSS */
-.mid_bar {
-    display: flex;
-    margin-top: 0.1%;
-    margin-bottom: 2%;
-    color:white;
-    font-family:'Bahnschrift Static Light';
-}
+    .all-case {
+        color:white;
+    }
 
-.numcard {
-    position: relative;
-    width: 50%;
-    min-width: 200px;
-    height: 200px;
-    margin: 0px 15px;
-    background:#232323;
-    overflow: hidden;
-    box-shadow: 15px 20px 20px rgb(0, 0, 0);
-}
+    .drop-box {
+        margin-left: 20px;
+    }
 
-hr{
-    border: 1px solid black;
-}
+    .box {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+    
+    .box select {
+        position: relative;
+        background-color: #232323;
+        color: white;
+        padding: 12px;
+        width: 13%;
+        min-width: 200px;
+        border: none;
+        margin: 5px;
+        font-size: 18px;
+        box-shadow: 15px 20px 20px rgb(0, 0, 0);
+        transition: 0.3s ease-in-out;
+    }
 
-.topcard {
-    padding:15px 15px;
-    font-weight:bold;
-    font-size:38px;
-}
+    #latest-cases {
+        animation: colorfadeyellow 5s infinite ease-in-out;
+    }
 
-.bottomcard {
-    display: flex;
-    flex-direction: row;
-    padding:10px 15px;
-    font-weight:bold;
-    font-size:18px;
-}
+    #latest-deaths {
+        animation: colorfadered 5s infinite ease-in-out;
+    }
 
-.cases {
-    color:yellow;
-}
+    #latest-recs {
+        animation: colorfadegreen 5s infinite ease-in-out;
+    }
 
-.death {
-    color:#ff1919ad;
-}
+    #country-select-title {
+        color:white;
+        text-align: center;
+        font-size:18px;
+        font-weight: bold;
+        margin:30px 0px;
+    }
 
-.recovery {
-    color:green;
-}
+    #country-select-title-error {
+        color:rgb(253, 0, 0);
+        text-align: center;
+        font-size:16px;
+        font-weight: normal;
+        margin:30px 0px;
+    }
 
-.daily-case {
-    color:white;
-    padding-left:15px;
-}
+    #submit-button-arrow {
+        color: white;
+        background-color: transparent;
+        border: none;
+        margin: 5px;
+        font-size: 50px;
+        transition: 0.3s ease-in-out;
+        cursor: pointer;
+    }
 
-.all-case {
-    color:white;
-}
+    #submit-button-arrow:hover {
+        color:rgb(0, 226, 0);
+    }
 
-.drop-box {
-    margin-left: 20px;
-}
+    .date-class {
+        margin:10px 0px;
+        color:#adadad;
+        font-size:14px;
+        font-weight: bold;
+        text-align: end;
+    }
 
-.box {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-}
-  
-.box select {
-    position: relative;
-    background-color: #232323;
-    color: white;
-    padding: 12px;
-    width: 13%;
-    min-width: 200px;
-    border: none;
-    margin: 5px;
-    font-size: 18px;
-    box-shadow: 15px 20px 20px rgb(0, 0, 0);
-    transition: 0.3s ease-in-out;
-}
+    /* GRAPH BAR CSS */
+    .graph_bar {
+        display: flex;
+        margin:2% 1%;
+        margin-bottom: 50px;
+    }
 
-#latest-cases {
-    animation: colorfadeyellow 5s infinite ease-in-out;
-}
+    .graph-canvas-main {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 95%;
+        min-width: 600px;
+        min-height: 200px;
+        margin:0px
+    }
 
-#latest-deaths {
-    animation: colorfadered 5s infinite ease-in-out;
-}
+    #myChart {
+        position: relative;
+    }
 
-#latest-recs {
-    animation: colorfadegreen 5s infinite ease-in-out;
-}
+    /* Footer CSS */
+    footer {
+        position: relative;
+        bottom: 2em;
+        left:-12em;
+        text-align: center;
+        color:white;
+        font-size: 15px;
+        font-family:'Bahnschrift Static Light';
+        font-weight:normal;
+        z-index: 999;
+        width:100vw;
+    }
 
-#country-select-title {
-    color:white;
-    text-align: center;
-    font-size:18px;
-    font-weight: bold;
-    margin:30px 0px;
-}
-
-#country-select-title-error {
-    color:rgb(253, 0, 0);
-    text-align: center;
-    font-size:16px;
-    font-weight: normal;
-    margin:30px 0px;
-}
-
-#submit-button-arrow {
-    color: white;
-    background-color: transparent;
-    border: none;
-    margin: 5px;
-    font-size: 50px;
-    transition: 0.3s ease-in-out;
-    cursor: pointer;
-}
-
-#submit-button-arrow:hover {
-    /* background-color: #afafaf; */
-    color:rgb(0, 226, 0);
-}
-
-.date-class {
-    margin:10px 0px;
-    color:#adadad;
-    font-size:14px;
-    font-weight: bold;
-    text-align: end;
-}
-
-/* GRAPH BAR CSS */
-.graph_bar {
-    display: flex;
-    margin:2% 1%;
-    margin-bottom: 50px;
-}
-
-.graph-canvas-main {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    /* height: 450px; */
-    width: 95%;
-    min-width: 600px;
-    min-height: 200px;
-    margin:0px
-    /* background-color: #232323; */
-    /* box-shadow: 15px 20px 20px rgb(0, 0, 0); */
-    /* color:white */
-}
-
-#myChart {
-    position: relative;
-    /* background-color: #232323; */
-}
-
-.graph-canvas-side {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 450px;
-    width: 5%;
-    min-width: 100px;
-    min-height: 450px;
-    margin-left:10px;
-    background: darkred;
-    box-shadow: 15px 20px 20px rgb(0, 0, 0);
-    color:white
-}
-
-/* Footer CSS */
-footer {
-    position: relative;
-    bottom: 2em;
-    left:-12em;
-    text-align: center;
-    color:white;
-    font-size: 15px;
-    font-family:'Bahnschrift Static Light';
-    font-weight:normal;
-    z-index: 999;
-    width:100vw;
-}
-
-.footer-span {
-    animation: colorfadered 5s infinite ease-in-out;
+    .footer-span {
+        animation: colorfadered 5s infinite ease-in-out;
+    }
 }

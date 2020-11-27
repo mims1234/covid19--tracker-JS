@@ -8,84 +8,91 @@
     <script src="/js/4651311c66.js"></script>
 </head>
 <body>
-    <!-- TOP BAR container -->
-    <div class="top_bar">
-        <form action="/">
-            <button id="title-name"><span id="title-name-span">COVID-19</span> TRACKER</button>
-        </form>
-        <div class="timeline-bar">
-            <label for="max" id="timeline-covid"> <button id="left-arrow" onclick="leftclick()"><i class="fas fa-angle-left"></i></button> <span id="timeline-start"></span> - <span id="timeline-end">  </span> <button id="right-arrow" onclick="rightclick()"><i class="fas fa-angle-right"></i></button> </label>
-            <input type="range" id="max" name="max" min="8" max="" value=0 oninput="datamax(this.value)" onchange="datamax(this.value)">
-        </div>
-        <div class="drop-box-all">
-            <p id="type-select-title">Select Type</p>
-            <div class="box-1">
-                <select id="type" name="type" onchange="typeChange(this.value)">
-                    <option value="Daily">Daily</option>
-                    <option value="Weekly">Weekly</option>
-                    <option value="Monthly">Monthly</option>
-                </select>
-            </div>
-      </div>
+    <div class="mobile-view">
+        <i class="fas fa-desktop desktop"></i>
+        <h1 class="no-phone-title">This Website works on <span class="no-phone-title-span">Desktop</span> Only</h1>
     </div>
 
-    <!-- MID BAR container -->
-    <div class="mid_bar">
-        <div class="numcard">
-            <div class="topcard">
-                <p class="cases">Cases</p><p class="date-class" id="date-class1"></p>
-                <p class="all-case" id="total-cases">0</p>
-            </div>
-            <hr>
-            <div class="bottomcard">
-                <p class="type-text">Daily </p><span class="daily-case" id="latest-cases">+0</span>
-            </div>
-        </div>
-        <div class="numcard">
-            <div class="topcard">
-                <p class="death">Death</p><p class="date-class"id="date-class2"></p>
-                <p class="all-case" id="total-deaths">0</p>
-            </div>
-            <hr>
-            <div class="bottomcard">
-                <p class="type-text">Daily </p><span class="daily-case" id="latest-deaths">+0</span>
-            </div>
-        </div>
-        <div class="numcard">
-            <div class="topcard">
-                <p class="recovery">Recovery</p><p class="date-class" id="date-class3"></p>
-                <p class="all-case" id="total-recs">0</p>
-            </div>
-            <hr>
-            <div class="bottomcard">
-                <p class="type-text">Daily </p><span class="daily-case" id="latest-recs">+0</span>
-            </div>
-        </div>
-        <div class="drop-box">
-            <p id="country-select-title">Select Country / Global</p>
-            <form action="dashboard" method="POST" class="box">
-                <select id="country" name="country">
-                    <option value="<%=COUNTRY%>" selected><%=COUNTRY%></option>
-                    <%- include('partials/countries-list.ejs') %>
-                </select>
-                <button id="submit-button-arrow"><i class="fas fa-angle-right"></i></button>
+    <div class="bigsize">
+        <!-- TOP BAR container -->
+        <div class="top_bar">
+            <form action="/">
+                <button id="title-name"><span id="title-name-span">COVID-19</span> TRACKER</button>
             </form>
-            <% if(ERRORMSG!="NONE") {%>
-                <p id="country-select-title-error"><%-ERRORMSG%><br>Data Not Avaialable</p>
-            <% } %>
-      </div>
-  </div>
+            <div class="timeline-bar">
+                <label for="max" id="timeline-covid"> <button id="left-arrow" onclick="leftclick()"><i class="fas fa-angle-left"></i></button> <span id="timeline-start"></span> - <span id="timeline-end">  </span> <button id="right-arrow" onclick="rightclick()"><i class="fas fa-angle-right"></i></button> </label>
+                <input type="range" id="max" name="max" min="8" max="" value=0 oninput="datamax(this.value)" onchange="datamax(this.value)">
+            </div>
+            <div class="drop-box-all">
+                <p id="type-select-title">Select Type</p>
+                <div class="box-1">
+                    <select id="type" name="type" onchange="typeChange(this.value)">
+                        <option value="Daily">Daily</option>
+                        <option value="Weekly">Weekly</option>
+                        <option value="Monthly">Monthly</option>
+                    </select>
+                </div>
+        </div>
+        </div>
 
-   <!-- GRAPH BAR container -->
-   <div class="graph_bar">
-    <div class="graph-canvas-main">
-        <canvas id="myChart" width="100%" height="30%"></canvas>
+        <!-- MID BAR container -->
+        <div class="mid_bar">
+            <div class="numcard">
+                <div class="topcard">
+                    <p class="cases">Cases</p><p class="date-class" id="date-class1"></p>
+                    <p class="all-case" id="total-cases">0</p>
+                </div>
+                <hr>
+                <div class="bottomcard">
+                    <p class="type-text">Daily </p><span class="daily-case" id="latest-cases">+0</span>
+                </div>
+            </div>
+            <div class="numcard">
+                <div class="topcard">
+                    <p class="death">Death</p><p class="date-class"id="date-class2"></p>
+                    <p class="all-case" id="total-deaths">0</p>
+                </div>
+                <hr>
+                <div class="bottomcard">
+                    <p class="type-text">Daily </p><span class="daily-case" id="latest-deaths">+0</span>
+                </div>
+            </div>
+            <div class="numcard">
+                <div class="topcard">
+                    <p class="recovery">Recovery</p><p class="date-class" id="date-class3"></p>
+                    <p class="all-case" id="total-recs">0</p>
+                </div>
+                <hr>
+                <div class="bottomcard">
+                    <p class="type-text">Daily </p><span class="daily-case" id="latest-recs">+0</span>
+                </div>
+            </div>
+            <div class="drop-box">
+                <p id="country-select-title">Select Country / Global</p>
+                <form action="dashboard" method="POST" class="box">
+                    <select id="country" name="country">
+                        <option value="<%=COUNTRY%>" selected><%=COUNTRY%></option>
+                        <%- include('partials/countries-list.ejs') %>
+                    </select>
+                    <button id="submit-button-arrow"><i class="fas fa-angle-right"></i></button>
+                </form>
+                <% if(ERRORMSG!="NONE") {%>
+                    <p id="country-select-title-error"><%-ERRORMSG%><br>Data Not Avaialable</p>
+                <% } %>
+        </div>
     </div>
-</div>
 
-<!-- FOOTER Area -->
-<footer>Made By <span class="footer-span">MHD IMRAN MOHSIN</span> and <span class="footer-span">BINDUSHREE M</span></footer>
+    <!-- GRAPH BAR container -->
+    <div class="graph_bar">
+        <div class="graph-canvas-main">
+            <canvas id="myChart" width="100%" height="30%"></canvas>
+        </div>
+    </div>
 
+    <!-- FOOTER Area -->
+    <footer>Made By <span class="footer-span">MHD IMRAN MOHSIN</span> and <span class="footer-span">BINDUSHREE M</span></footer>
+
+    </div>
 <!-- CHARTJS -->
 <script src="/js/Chart.bundle.min.js"></script>
 <script>
