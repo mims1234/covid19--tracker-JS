@@ -84,11 +84,11 @@ module.exports = {
                             death_data_arr_week.push((parseInt(Deaths[i+7]-Deaths[i])))
                             rec_data_arr_week.push((parseInt(Rec[i+7]-Rec[i])))
     
-                            total_case_data_arr_week.push(Cases[i])
-                            total_death_data_arr_week.push(Deaths[i])
-                            total_rec_data_arr_week.push(Rec[i])
+                            total_case_data_arr_week.push(Cases[i+7])
+                            total_death_data_arr_week.push(Deaths[i+7])
+                            total_rec_data_arr_week.push(Rec[i+7])
     
-                            labels_arr_week.push(moment(Dates[i],'L').format('LL'))
+                            labels_arr_week.push(moment(Dates[i+7],'L').format('LL'))
                         }
                     }
                     WEEKS=labels_arr_week.length
@@ -99,11 +99,11 @@ module.exports = {
                             death_data_arr_month.push((parseInt(Deaths[i+30]-Deaths[i])))
                             rec_data_arr_month.push((parseInt(Rec[i+30]-Rec[i])))
     
-                            total_case_data_arr_month.push(Cases[i])
-                            total_death_data_arr_month.push(Deaths[i])
-                            total_rec_data_arr_month.push(Rec[i])
-    
-                            labels_arr_month.push(moment(Dates[i],'L').format('LL'))
+                            total_case_data_arr_month.push(Cases[i+30])
+                            total_death_data_arr_month.push(Deaths[i+30])
+                            total_rec_data_arr_month.push(Rec[i+30])
+
+                            labels_arr_month.push(moment(Dates[i+30],'L').format('LL'))
                         }
                     }
                     MONTHS=labels_arr_month.length

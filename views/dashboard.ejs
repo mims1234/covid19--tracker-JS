@@ -70,7 +70,7 @@
             <div class="drop-box">
                 <p id="country-select-title">Select Country / Global</p>
                 <form action="dashboard" method="POST" class="box">
-                    <select id="country" name="country">
+                    <select id="country" name="country" onchange="CountryChange()">
                         <option value="<%=COUNTRY%>" selected><%=COUNTRY%></option>
                         <%- include('partials/countries-list.ejs') %>
                     </select>
@@ -96,6 +96,23 @@
 <!-- CHARTJS -->
 <script src="/js/Chart.bundle.min.js"></script>
 <script>
+        countryName = document.getElementById('country')
+        submitCountryArrow = document.getElementById('submit-button-arrow')
+        submitCountryArrow.classList.remove('submit-button-arrow-visible')
+        submitCountryArrow.classList.add('submit-button-arrow-hide')
+
+        function CountryChange(){
+            if("<%=COUNTRY%>"=="Global") CN = "All"
+            else CN = "<%=COUNTRY%>"
+
+            if(countryName.value!=CN){
+                submitCountryArrow.classList.add('submit-button-arrow-visible')
+                submitCountryArrow.classList.remove('submit-button-arrow-hide')
+            }else{
+                submitCountryArrow.classList.remove('submit-button-arrow-visible')
+                submitCountryArrow.classList.add('submit-button-arrow-hide')
+            }
+        }
         max_range = document.getElementById('max')
 
         left_arrow = document.getElementById("left-arrow")
@@ -173,7 +190,7 @@
             }
             console.log(All_Data_Dates[All_Data_Dates.length-1])
             max_range.max=All_Data_Cases.length+GraphRange
-            datamax(8)
+            datamax(8,value)
         }
 
         function numberWithCommas(x) {
@@ -270,19 +287,30 @@
             right_arrow.focus()
         }
 
-        function datamax(value){
+        function datamax(value,type){
             let newval = value
             if(value>=All_Data_Cases.length) value = All_Data_Cases.length
 
             MAX_RANGE=value;
-            Data_Cases = All_Data_Cases.slice(MAX_RANGE-8,MAX_RANGE-1)
-            Data_Deaths = All_Data_Deaths.slice(MAX_RANGE-8,MAX_RANGE-1)
-            Data_Rec = All_Data_Rec.slice(MAX_RANGE-8,MAX_RANGE-1)
-            Data_Dates = All_Data_Dates.slice(MAX_RANGE-8,MAX_RANGE-1)
+            if(type==="Daily"){
+                Data_Cases = All_Data_Cases.slice(MAX_RANGE-8,MAX_RANGE-1)
+                Data_Deaths = All_Data_Deaths.slice(MAX_RANGE-8,MAX_RANGE-1)
+                Data_Rec = All_Data_Rec.slice(MAX_RANGE-8,MAX_RANGE-1)
+                Data_Dates = All_Data_Dates.slice(MAX_RANGE-8,MAX_RANGE-1)
 
-            TData_Cases = Total_Data_Cases.slice(MAX_RANGE-8,MAX_RANGE-1)
-            TData_Deaths = Total_Data_Deaths.slice(MAX_RANGE-8,MAX_RANGE-1)
-            TData_Rec = Total_Data_Recs.slice(MAX_RANGE-8,MAX_RANGE-1)
+                TData_Cases = Total_Data_Cases.slice(MAX_RANGE-8,MAX_RANGE-1)
+                TData_Deaths = Total_Data_Deaths.slice(MAX_RANGE-8,MAX_RANGE-1)
+                TData_Rec = Total_Data_Recs.slice(MAX_RANGE-8,MAX_RANGE-1)
+            } else {
+                Data_Cases = All_Data_Cases.slice(MAX_RANGE-7,MAX_RANGE)
+                Data_Deaths = All_Data_Deaths.slice(MAX_RANGE-7,MAX_RANGE)
+                Data_Rec = All_Data_Rec.slice(MAX_RANGE-7,MAX_RANGE)
+                Data_Dates = All_Data_Dates.slice(MAX_RANGE-7,MAX_RANGE)
+
+                TData_Cases = Total_Data_Cases.slice(MAX_RANGE-7,MAX_RANGE)
+                TData_Deaths = Total_Data_Deaths.slice(MAX_RANGE-7,MAX_RANGE)
+                TData_Rec = Total_Data_Recs.slice(MAX_RANGE-7,MAX_RANGE)
+            }
 
             timeline_start.innerHTML = Data_Dates[0];
             timeline_end.innerHTML = Data_Dates[Data_Dates.length-1];

@@ -343,9 +343,31 @@
         cursor: pointer;
     }
 
-    #submit-button-arrow:hover {
-        color:rgb(0, 226, 0);
+    .submit-button-arrow-hide {
+        display: none;
     }
+
+    .submit-button-arrow-visible {
+        display:inline;
+        animation: visiblearrow 5s infinite ease-in-out;
+    }
+
+    
+    @keyframes visiblearrow{
+        0%{
+            color:rgb(0, 209, 0);
+        }
+        50%{
+            color:red;
+        }
+        100%{
+            color:rgb(0, 209, 0);
+        }
+    }
+
+    /* #submit-button-arrow:hover {
+        color:rgb(0, 226, 0);
+    } */
 
     .date-class {
         margin:10px 0px;
