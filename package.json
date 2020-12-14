@@ -5,6 +5,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npm run open && nodemon app.js",
+    "server": "nodemon app.js",
     "dev": "node app.js",
     "open": "start http://localhost:3050/"
   },
