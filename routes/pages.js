@@ -51,9 +51,11 @@ module.exports = {
         if(COUNTRY==="Global") COUNTRY="All"
 
         api_run = async(COUNTRY,ERRORMSG) =>{
-            Now = moment().format('YYYY/MM/DD');
-            Now = moment(Now.split("/"))
-            Start = moment(['2020','1','21'])
+            NowDate = moment().format('YYYY/MM/DD');
+            NowArray = NowDate.split("/")
+            NowArray[1]=parseInt(NowArray[1]) - 1
+            Now = moment(NowArray)
+            Start = moment(['2020','0','21'])
             RANGE = Now.diff(Start, 'day')
 
             DAYS=RANGE
@@ -77,42 +79,47 @@ module.exports = {
                     counterRender = 0;
 
                     for(i=0;i<RANGE;i+=7){
-                        case_data_arr_week.push((parseInt(Cases[i+7]-Cases[i])))
-                        death_data_arr_week.push((parseInt(Deaths[i+7]-Deaths[i])))
-                        rec_data_arr_week.push((parseInt(Rec[i+7]-Rec[i])))
-
-                        total_case_data_arr_week.push(Cases[i])
-                        total_death_data_arr_week.push(Deaths[i])
-                        total_rec_data_arr_week.push(Rec[i])
-
-                        labels_arr_week.push(moment(Dates[i],'L').format('LL'))
+                        if(Number.isNaN(parseInt(Cases[i+7]-Cases[i]))===false){
+                            case_data_arr_week.push((parseInt(Cases[i+7]-Cases[i])))
+                            death_data_arr_week.push((parseInt(Deaths[i+7]-Deaths[i])))
+                            rec_data_arr_week.push((parseInt(Rec[i+7]-Rec[i])))
+    
+                            total_case_data_arr_week.push(Cases[i])
+                            total_death_data_arr_week.push(Deaths[i])
+                            total_rec_data_arr_week.push(Rec[i])
+    
+                            labels_arr_week.push(moment(Dates[i],'L').format('LL'))
+                        }
                     }
                     WEEKS=labels_arr_week.length
 
                     for(i=0;i<RANGE;i+=30){
-                        case_data_arr_month.push((parseInt(Cases[i+30]-Cases[i])))
-                        death_data_arr_month.push((parseInt(Deaths[i+30]-Deaths[i])))
-                        rec_data_arr_month.push((parseInt(Rec[i+30]-Rec[i])))
-
-                        total_case_data_arr_month.push(Cases[i])
-                        total_death_data_arr_month.push(Deaths[i])
-                        total_rec_data_arr_month.push(Rec[i])
-
-                        labels_arr_month.push(moment(Dates[i],'L').format('LL'))
+                        if(Number.isNaN(parseInt(Cases[i+30]-Cases[i]))===false){
+                            case_data_arr_month.push((parseInt(Cases[i+30]-Cases[i])))
+                            death_data_arr_month.push((parseInt(Deaths[i+30]-Deaths[i])))
+                            rec_data_arr_month.push((parseInt(Rec[i+30]-Rec[i])))
+    
+                            total_case_data_arr_month.push(Cases[i])
+                            total_death_data_arr_month.push(Deaths[i])
+                            total_rec_data_arr_month.push(Rec[i])
+    
+                            labels_arr_month.push(moment(Dates[i],'L').format('LL'))
+                        }
                     }
                     MONTHS=labels_arr_month.length
 
                     for(i=0;i<RANGE;i++){
-
-                        case_data_arr_day.push((parseInt(Cases[i+1]-Cases[i])))
-                        death_data_arr_day.push((parseInt(Deaths[i+1]-Deaths[i])))
-                        rec_data_arr_day.push((parseInt(Rec[i+1]-Rec[i])))
-
-                        total_case_data_arr_day.push(Cases[i+1])
-                        total_death_data_arr_day.push(Deaths[i+1])
-                        total_rec_data_arr_day.push(Rec[i+1])
-
-                        labels_arr_day.push(moment(Dates[i+1],'L').format('LL'))
+                        if(Number.isNaN(parseInt(Cases[i+1]-Cases[i]))===false){
+                            case_data_arr_day.push((parseInt(Cases[i+1]-Cases[i])))
+                            death_data_arr_day.push((parseInt(Deaths[i+1]-Deaths[i])))
+                            rec_data_arr_day.push((parseInt(Rec[i+1]-Rec[i])))
+    
+                            total_case_data_arr_day.push(Cases[i+1])
+                            total_death_data_arr_day.push(Deaths[i+1])
+                            total_rec_data_arr_day.push(Rec[i+1])
+    
+                            labels_arr_day.push(moment(Dates[i+1],'L').format('LL'))
+                        }
                         ++counterRender;
                         
                         if(counterRender === RANGE){
@@ -148,7 +155,8 @@ module.exports = {
 
                 } catch(e) {
                     console.log(`ERROR: ${COUNTRY} data not available !!\n`)
-                    res.redirect(`/dashboard/${COUNTRY}/false`)
+                    if(req.params.status=="false") return res.send("404 Error MiMs")
+                    else return res.redirect(`/dashboard/${COUNTRY}/false`)
                 }
             },1500)
         }
